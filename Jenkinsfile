@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                PID = sh (
+                def pid = sh (
                     script: 'python3 main.py &; echo $!',
                     returnStdout: true
                 ).trim()
                 sh 'sh test.sh'
-                sh 'kill -9 ${PID}'
+                sh 'kill -9 ${pid}'
             }
         }
     }
