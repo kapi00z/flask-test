@@ -2,21 +2,20 @@ pipeline {
     agent any
 
     stages {
-        stage('Prepare') {
+        stage('Build') {
             steps {
-                sh 'sh prepare.sh'
+                sh 'docker build -t app app/'
+            }
+        }
+        stage('Start the app') {
+            steps {
+                sh 'docker run -d --name app -p 3000:3000 app'
             }
         }
         stage('Test') {
-            environment {
-                PID = sh (
-                    script: 'python3 main.py & echo $!',
-                    returnStdout: true
-                ).trim()
-            }
             steps {
                 sh 'sh test.sh'
-                sh 'kill -9 ${PID}'
+                sh 'docker rm -f app'
             }
         }
     }

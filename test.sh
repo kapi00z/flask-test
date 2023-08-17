@@ -1,6 +1,6 @@
 #!/bin/sh
 
-curl -s --output /dev/null localhost:3000
+curl -s --output /dev/null docker:3000
 result=$?
 
 if [[ $result -eq "0" ]]
