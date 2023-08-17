@@ -10,7 +10,7 @@ pipeline {
         stage('Test') {
             environment {
                 PID = sh (
-                    script: 'python3 main.py &; echo $!',
+                    script: 'python3 main.py && echo $!',
                     returnStdout: true
                 ).trim()
             }
