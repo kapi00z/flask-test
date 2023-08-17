@@ -8,13 +8,15 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-                def pid = sh (
+            environment {
+                PID = sh (
                     script: 'python3 main.py &; echo $!',
                     returnStdout: true
                 ).trim()
+            }
+            steps {
                 sh 'sh test.sh'
-                sh 'kill -9 ${pid}'
+                sh 'kill -9 ${PID}'
             }
         }
     }
