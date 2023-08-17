@@ -9,8 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'python3 main.py &'
-                sh 'export pid=$!'
+                pid = sh('python3 main.py &; echo $!')
                 sh 'sh test.sh'
                 sh 'kill -9 $pid'
             }
